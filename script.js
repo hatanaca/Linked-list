@@ -1,3 +1,163 @@
+class Node {
+    constructor(value){
+        this.value = value;
+        this.next = null;
+        this.prev = null;
+    }
+}
+
+class DoublyLinkedList{
+    constructor(value){
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+    }
+
+    printList() {
+        let temp = this.head;
+        while (temp) {
+            console.log(temp.value);
+            temp = temp.next;
+        }
+    }
+    getHead(){
+        if (!this.head) return console.log("Head: null");
+        else {
+            console.log("Head: " + this.head.value);
+        }
+    }
+    getTail(){
+        if(!this.tail) return console.log("Tail: null");
+        else {
+            console.log("Tail: " + this.tail.value);
+        }
+    }
+    getLength(){
+        console.log("Lenght is: " + this.length);
+    }
+    makeEmpty(){
+        this.head = null;
+        this.tail = null;
+        this.length = 0;
+    }
+    push(value){
+        let newNode = new Node(value);
+        if(!this.head){
+            this.head = newNode;
+            this.tail = newNode;
+        }else{
+            this.tail.next = newNode;
+            newNode.prev = this.tail;
+            this.tail = newNode;
+        }
+        this.length++;
+        return this;
+    }
+    pop(){
+        if(this.length === 0) return undefined;
+        let temporarioNode = this.head;
+        if(this.length === 1){
+            this.head = null;
+            this.tail = null;
+        }
+        else {
+            this.tail = this.tail.prev;
+            this.tail.next = null;
+            temp.prev = null;
+        }
+        this.length--;
+        return temp;
+    }
+    unshift(value){
+        let temporarioNode = new Node(value);
+        if(this.length === 0) {
+            this.head = temporarioNode;
+            this.tail = temporarioNode;
+        }else{
+            temporarioNode.next = this.head;
+            this.head.prev = temporarioNode;
+            this.head = temporarioNode;
+        }
+        this.length++;
+        return this;
+    }
+    shift(){
+        if(this.length === 0) return undefined;
+        let temporario = this.head;
+        if(this.length === 1) {
+            this.head = null;
+            this.tail = null;
+        }else{
+            this.head = this.head.next;
+            this.head.prev = null;
+            temporario.next = null;
+        }
+        this.length--;
+        return temporario;
+    }
+    get(index){
+        if(index < 0 || index >= this.length) return undefined;
+        let temporarioNode = this.head;
+        if(index < this.length/2){
+            for(let i = 0; i < index;i++) {
+                temporarioNode = temporarioNode.next;
+            }
+        }else {
+            temporarioNode = this.tail;
+            for(let i = this.length - 1; i > index;i--){
+                temporarioNode = temporarioNode.prev;
+            }
+        }
+        return temp;
+    }
+    set(index, value) {
+        let foundNode = this.get(index);
+        if(foundNode){
+            foundNode.value = value;
+            return true;
+        }
+    }
+    insert(index, value){
+        if(index < 0 || index > this.length) return undefined;
+        if(index === 0) return this.unshift(value);
+        if(index === this.length) return this.push(value);
+
+        let newNode = new Node(value);
+        let beforeNode  = this.get(index - 1);
+        let afterNode = beforeNode.next;
+        beforeNode.next = newNode;
+        newNode.prev = beforeNode;
+        newNode.next = afterNode;
+        afterNode.prev = newNode;
+        this.length++;
+        return newNode;
+    }
+    remove(index){
+        if(index < 0 || index > this.length) return undefined;
+        if(index === 0) return this.shift();
+        if(index === this.length) return this.pop();
+
+        let temporario = this.get(index);
+
+        temporario.prev.next = temporario.next;
+        temporario.next.prev = temporario.prev;
+        temporario.next = null;
+        temporario.prev = null;
+
+        this.length--;
+        return temporario;
+    }
+}
+
+
+
+            // let contador = 0
+            // while(contador < index) {
+            //     temporarioNode = temporarioNode.next;
+            //     contador++;
+            // }
+            // return temporarioNode;
+
 // class Node {
 //     constructor(value){
 //         this.value = value;
