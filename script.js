@@ -6,35 +6,31 @@ class Node {
 }
 
 class Queue {
-    constructor(value) {
-        const newNode = new Node(value);
-        this.first = newNode;
-        this.last = newNode;
-        this.length = 1;
+    constructor() {
+        this.first = null;
+        this.last = null;
+        this.size = 0;
     }
-    enqueue(value) {
+    enqueue(value){
         let newNode = new Node(value);
-        if(!this.first) {
+        if (!this.first) {
             this.first = newNode;
             this.last = newNode;
-        } else {
+        }else {
             this.last.next = newNode;
             this.last = newNode;
         }
-        this.length++
-        return newNode;
+        return ++this.size;
     }
-
-    dequeue() {
-        if(this.length === 0) return undefined;
+    dequeue(){
+        if (!this.size) return null;
         let newNode = this.first;
-        if(this.first === 1){
-            this.first = null;
+        if(this.first = this.last) {
             this.last = null;
         }
         this.first = this.first.next;
-        newNode.next = null;
-        this.length--;
-        
+        this.size--;
+        return newNode;
+
     }
 }
