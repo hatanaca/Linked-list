@@ -1,67 +1,63 @@
 class Node {
-    constructor(value) {
+    constructor(value){
         this.value = value;
         this.left = null;
         this.right = null;
     }
 }
 
-class BinarySearchTree {
-    constructor(){
+class BST {
+    constructor() {
         this.root = null;
     }
-    insert(value) {
+
+    insert(value){
         const newNode = new Node(value);
         if(!this.root) {
             this.root = newNode;
             return this;
-        } 
-        let current = this.root;
+        }
+        let temp = this.root;
         while(true){
-            if (value === current.value) return undefined;
-            if (value < current.value){
-                if(!current.left) {
-                    current.left = newNode;
+            if(newNode.value > temp.value){
+                if(!temp.left) {
+                    temp.left = newNode;
                     return this;
                 }
-                current = current.left;
+                temp = temp.left;
             } else {
-                if(!current.right) {
-                    current.right = newNode;
+                if(!temp.right){
+                    temp.right = newNode;
                     return this;
                 }
-                current = current.right;
+                temp = temp.right;
             }
         }
     }
-    find(value) {
+    contains(value) {
         if(!this.root) return false;
-        var current = this.root, found = false;
-        while(current && !found){
-            if(value < current.value){
-                current = current.left;
-            } else if(value > current.value){
-                current = current.right;
-            } else {
-                found = true;
-            }
+        let temp = this.root;
+        while(temp) {
+            if(value > temp){
+                temp = temp.left;
+            } else if(value < temp){
+                temp = temp.right;
+            } else return true;
         }
-        if(!found) return undefined;
-        return current;
+        return false;
     }
-    contains(value){
-        if(!this.root) return false;
-        let current = this.root, found = false;
+    BFS(){
+        let currentNode = this.root;
+        let results = [];
+        let queue = [];
+        queue.push(currentNode)
 
-        while(current && !found) {
-            if(current < current.value){
-                current = current.left;
-            } else if(current > current.value){
-                current = current.right;
-            } else {
-                return true
-            }
-            return false;
+        while(queue.length) {
+            currentNode = queue.shift();
+            results.push(currentNode.value);
+            if(currentNode.left) queue.push(currentNode.left);
+            if(currentNode.right) queue.push(currentNode.right);
         }
+        return results;
     }
 }
