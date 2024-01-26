@@ -1,36 +1,67 @@
 class Node {
-    constructor(value){
+    constructor(value) {
         this.value = value;
-        this.next = null;
+        this.left = null;
+        this.right = null;
     }
 }
 
-class Queue {
-    constructor() {
-        this.first = null;
-        this.last = null;
-        this.size = 0;
+class BinarySearchTree {
+    constructor(){
+        this.root = null;
     }
-    enqueue(value){
-        let newNode = new Node(value);
-        if (!this.first) {
-            this.first = newNode;
-            this.last = newNode;
-        }else {
-            this.last.next = newNode;
-            this.last = newNode;
+    insert(value) {
+        const newNode = new Node(value);
+        if(!this.root) {
+            this.root = newNode;
+            return this;
+        } 
+        let current = this.root;
+        while(true){
+            if (value === current.value) return undefined;
+            if (value < current.value){
+                if(!current.left) {
+                    current.left = newNode;
+                    return this;
+                }
+                current = current.left;
+            } else {
+                if(!current.right) {
+                    current.right = newNode;
+                    return this;
+                }
+                current = current.right;
+            }
         }
-        return ++this.size;
     }
-    dequeue(){
-        if (!this.size) return null;
-        let newNode = this.first;
-        if(this.first = this.last) {
-            this.last = null;
+    find(value) {
+        if(!this.root) return false;
+        var current = this.root, found = false;
+        while(current && !found){
+            if(value < current.value){
+                current = current.left;
+            } else if(value > current.value){
+                current = current.right;
+            } else {
+                found = true;
+            }
         }
-        this.first = this.first.next;
-        this.size--;
-        return newNode;
+        if(!found) return undefined;
+        return current;
+    }
+    contains(value){
+        if(!this.root) return false;
+        let current = this.root, found = false;
 
+        while(current && !found) {
+            if(current < current.value){
+                current = current.left;
+            } else if(current > current.value){
+                current = current.right;
+            } else {
+                return true
+            }
+            return false;
+        }
     }
 }
