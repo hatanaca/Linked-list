@@ -13,7 +13,6 @@ class HashTable {
         }
         return total;
     }
-
     set(key, value){
         let index = this._hash(key);
         if(!this.keyMap[index]){
@@ -31,5 +30,31 @@ class HashTable {
             }
         }
         return undefined;
+    }
+    keys(){
+        let keyArr = [];
+        for(let i = 0; i < this.keyMap.length; i++) {
+            if(this.keyMap[i]) {
+                for(let j = 0; j < this.keyMap[i].length; j++) {
+                    if(keyArr.includes(this.keyMap[i] [j] [0])){
+                        keyArr.push(this.keyMap[i][j][0])
+                    }
+                }
+            }
+        }
+        return keyArr;
+    }
+    values(){
+        let valuesArr = [];
+        for(let i = 0; i < this.keyMap.length;i++){
+            if(this.keyMap[i]){
+                for(let j = 0; j < this.keyMap[i].length; j++){
+                    if(!valuesArr.includes(this.keyMap[i][j][1])){
+                        valuesArr.push(this.keyMap[i][j][1])
+                    }
+                }
+            }
+        }
+        return valuesArr;
     }
 }
