@@ -29,4 +29,4 @@ function mergeSort(arr){
     let right = mergeSort(arr.slice(mid));
     return merge(left, right);
 }
-mergeSort([10,24,76,73])
+mergeSort([15,30,72,5,8,13,7,8,21,55,25,15])
